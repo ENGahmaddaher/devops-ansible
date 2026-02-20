@@ -39,32 +39,6 @@ All deployments are repeatable, idempotent, and automated.
 
 ---
 
-🧱 Architecture
-
-enterprise-ansible-lab/
-│
-├── ansible/
-│   ├── inventory/
-│   │   ├── dev/
-│   │   ├── staging/
-│   │   └── production/
-│   │
-│   ├── playbooks/
-│   │   ├── site.yml
-│   │   ├── backup.yml
-│   │   └── docker.yml
-│   │
-│   └── roles/
-│       ├── webserver/
-│       ├── database/
-│       ├── docker/
-│       ├── file-share/
-│       └── backup/
-│
-├── Taskfile.yml
-└── .github/workflows/
-
----
 
 ⚙️ Technologies Used
 
@@ -115,9 +89,9 @@ Developers and CI pipelines run the same commands.
 ✅ 1. Lint Infrastructure
 
 Validate Ansible quality:
-
+```bash
 task lint
-
+```
 Runs:
 
 - ansible-lint
@@ -128,17 +102,17 @@ Runs:
 ✅ 2. Syntax Check
 
 Verify playbooks before deployment:
-
+```bash
 task syntax
-
+```
 Ensures infrastructure is valid without changing servers.
 
 ---
 
 ✅ 3. Deploy Development Environment
-
+```bash
 task deploy-dev
-
+```
 Deploys:
 
 - Web servers
@@ -150,25 +124,25 @@ Deploys:
 ---
 
 ✅ 4. Deploy Staging
-
+```bash
 task deploy-staging
-
+```
 Used before production release.
 
 ---
 
 ✅ 5. Deploy Production
-
+```bash
 task deploy-prod
-
+```
 Runs with Ansible Vault protection for secrets.
 
 ---
 
 ✅ 6. Run Backups Only
-
+```bash
 task backup
-
+```
 Executes backup automation without redeploying infrastructure.
 
 ---
@@ -244,26 +218,26 @@ It reflects how companies automate infrastructure at scale.
 - Taskfile
 
 Install Task:
-
+```bash
 sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
-
+```
 ---
 
 ▶️ Quick Start
 
 Clone project:
-
+```bash
 git clone <repo>
 cd enterprise-ansible-lab
-
+```
 Run validation:
-
+```bash
 task lint
-
+```
 Deploy infrastructure:
-
+```bash
 task deploy-dev
-
+```
 ---
 
 📌 Future Extensions
