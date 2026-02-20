@@ -1,0 +1,7 @@
+---
+- name: this is the playbook
+  hosts: all
+  gather_facts: no
+  tags: web
+  roles:
+   - webserver

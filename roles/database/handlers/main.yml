@@ -1,0 +1,2 @@
+- name: run db backup
+  ansible.builtin.command:  bash /path/to/backup.sh

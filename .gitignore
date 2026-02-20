@@ -1,0 +1,14 @@
+#Ansible
+*.retry
+#python
+*.pyc
+#ENVIRONMENTS
+.env
+#SSH keys
+*.pem
+*.key
+#OS
+.DS_Store
+#IDE
+.vscode/
+.idea/

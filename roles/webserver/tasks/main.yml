@@ -1,0 +1,15 @@
+- name: apt install nginx
+    ansible.builtin.package:
+      name: nginx
+      state: present
+    notify:
+      - restart nginx
+    tags:
+      - web
+- name: Ensure nginx is enabled
+    ansible.builtin.service:
+      name: nginx
+      state: started
+      enabled: true
+    tags:
+      - web

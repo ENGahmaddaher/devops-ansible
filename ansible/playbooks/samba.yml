@@ -1,0 +1,5 @@
+---
+- name: Setup Samba File Sharing
+  hosts: all
+  roles:
+    - file-share

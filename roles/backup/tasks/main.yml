@@ -1,0 +1,17 @@
+---
+- name: Ensure backup direcroty exist
+  ansible.builtin.file:
+    path: "{{ backup_dir }}"
+    state: directory
+    mode: '755'
+  tags:
+    - backup
+- name: Create backup archive
+  ansible.builtin.archive:
+    path: "{{ backup_targets }}"
+    dest: "{{ backup_dir }}/backup-{{ ansible_date_time.date }}-{{ ansible_date_time.time }}.tar.gz"
+    format: gz
+  notify:
+    - backup completed
+  tags:
+    - backup

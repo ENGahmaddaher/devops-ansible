@@ -1,0 +1,6 @@
+---
+- name: Run System Backups
+  hosts: all
+  gather_facts: no
+  roles:
+    - backup

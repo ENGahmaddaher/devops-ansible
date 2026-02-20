@@ -1,0 +1,32 @@
+---
+- name: install PortgresSQL
+  ansible.builtin.package:
+    name: postgresql
+    state: present
+  tags:
+    - db
+- name: Ensure Postgresql service is running
+  ansible.builtin.service:
+    name: postgresql
+    state: started
+    enabled: true
+  tags:
+    - db
+- name: Create database user
+  ansible.builtin.postgresql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    state: present
+  tags:
+    - db
+  notify:
+    - run db backup
+- name: Create database
+  ansible.builtin.postgresql_db:
+    name: "{{ db_name }}"
+    owner: "{{ db_user }}"
+    state: present
+  tags:
+    - db
+  notify:
+    - run db backup

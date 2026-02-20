@@ -1,0 +1,6 @@
+---
+- name: Build and Run Docker App
+  hosts: all
+  gather_facts: no
+  roles:
+    - docker-app

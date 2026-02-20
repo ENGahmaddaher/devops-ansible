@@ -1,0 +1,3 @@
+docker_image: myapp:latest
+container_name: myapp_container
+docker_path: ./docker

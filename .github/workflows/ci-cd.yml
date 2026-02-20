@@ -1,0 +1,43 @@
+version: "3"
+on:
+  push:
+    branches:
+      - [ "dev" , "staging" , "main" ]
+  pull_request:
+    branches: [ "staging" , "main" ]
+
+jobs:
+  lint:
+    - name: init
+      runs-on: ubuntu-latest
+      steps:
+        - name: test
+          uses: actions/checkout@v4
+        - name: Setup Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: "3.11"
+        - name: Install Ansible & tools
+          run: |
+            - python -m pip install --upgrade pip
+            - pip install ansible ansible-lint yamllint
+        - name: Install Task
+          uses: arduino/setup-task@v2
+
+     # - name: Install Python + Ansible
+      #  run: |
+       #   sudo apt update
+        #  sudo apt install -y ansible ansible-lint python3-pip
+         # pip install yamllint
+
+        - name: Run Lint
+          run: task lint
+        - name: Run syntax
+          run: task syntax
+        - name: Lint Taskfile
+          run: task --list
+        - name: Run ping
+          run: |
+            task dev:ping
+            task prod:ping
+            task staging:ping

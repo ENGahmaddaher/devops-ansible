@@ -1,0 +1,40 @@
+---
+- name: Install Samba
+  ansible.builtin.package:
+    name: smbd
+    state: present
+    update_chache: true
+  tags:
+    - samba
+  notify:
+    - restart samba
+- name: Ensure shared directory exist
+  ansible.builtin.file:
+    path: "{{ samba_share_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0775"
+  tags:
+    - samba
+  notify:
+    - restart samba
+
+
+- name: Create Samba Users
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ samba_users }}"
+  tags:
+    - samba
+  notify:
+    - restart samba
+
+- name: Ensure Samba Service is Running
+  ansible.builtin.service:
+    name: smbd
+    state: started
+    enabled: true
+  tags:
+    - samba

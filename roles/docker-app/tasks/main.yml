@@ -1,0 +1,18 @@
+---
+- name: Build Docker Image
+  community.docker.docker_image:
+    name: "{{ docker_image }}"
+    build:
+      path: "{{ docker_path }}"
+  tags:
+    - docker
+  notify:
+    - restart docker
+- name: Run Docker Container
+  community.docker.docker_container:
+    image: "{{ docker_image }}"
+    name: "{{ container_name }}"
+    state: start
+    restart_policy: unless-stopped
+  tags:
+    - docker

@@ -1,0 +1,4 @@
+ansible_connection: local
+env: dev
+ansible_user: devops
+ansible_host: localhost

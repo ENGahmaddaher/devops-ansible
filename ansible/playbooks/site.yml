@@ -1,0 +1,10 @@
+---
+- name: Enterprise Infrastructure Deployment
+  hosts: all
+  gather_facts: no
+  roles:
+    - webserver
+    - database
+    - docker
+    - file-share
+    - backup

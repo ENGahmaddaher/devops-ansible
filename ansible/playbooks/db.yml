@@ -1,0 +1,8 @@
+---
+- name: Setup Databases
+  hosts: all
+  gather_facts: no
+  vars_file:
+    - ../roles/database/vars/vault.yml
+  roles:
+    - database

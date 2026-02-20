@@ -1,0 +1,49 @@
+version: "3"
+vars:
+  INVENTORY: inventory/dev/hosts.yml
+
+tasks:
+  dev:ping:
+    desc: "ping all dev hosts"
+    cmds:
+      - ansible-playbook -i inventory/dev/hosts.yml ansible/ping.yml
+
+  staging:ping:
+    desc: "ping all staging hosts"
+    cmds:
+      - ansible-playbook -i inventory/stagin/hosts.yml ansible/ping.yml
+
+  prod:ping:
+    desc: "ping all prod hosts"
+    cmds:
+      - ansible-playbook -i inventory/prod/hosts.yml ansible/ping.yml
+
+  docker:build:
+    desc: "Build Docker images"
+    cmds:
+      - docker build -t myapp:latest  ./docker
+
+  cleanup:
+    desc: "Run cleanup scripts"
+    cmds:
+      - bash scripts/cleanup.sh
+  lint:
+    desc: Run Ansible Lint
+    cmds:
+      - ansible-lint ansible/
+  deploy-dev:
+    desc: Deploy Full infrastructure to dev
+    cmds:
+      - ansible-playbook -i {{.INVENTORY}} ansible/playbooks/site.yml
+  docker:
+    desc: Deploy docker role only
+    cmds:
+      - ansible-playbook -i {{.INVENTORY}} ansible/playbooks/docker.yml --tags docker
+  backup:
+    desc: Run backup role only
+    cmds:
+      - ansible-playbook -i {{.INVENTORY}} ansible/playbooks/backup.yml --tags backup
+  syntax:
+    desc: Syntax check playbooks
+    cmds:
+      - ansible-playbook -i {{.INVENTORY}} ansible/playbooks/site.yml --syntax-check

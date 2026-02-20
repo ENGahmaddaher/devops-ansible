@@ -1,0 +1,4 @@
+---
+- name: backup completed
+  ansible.builtin.debug:
+    msg: "Backup completed successfully"

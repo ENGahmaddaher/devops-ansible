@@ -1,0 +1,6 @@
+---
+backup_dir: /opt/backups
+backup_targets:
+  - /var/www/
+  - /srv/shared
+  - /var/lib/docker

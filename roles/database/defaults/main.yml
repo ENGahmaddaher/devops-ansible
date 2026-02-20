@@ -1,0 +1,4 @@
+---
+db_name: demo_db
+db_user: demo_user
+db_port: 5432
